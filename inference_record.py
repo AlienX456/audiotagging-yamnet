@@ -33,11 +33,15 @@ import time
 
 records = []
 
+flag = False
+
 fs = 44100
 
 def record():
-  print('starting recording, waiting 1:30 to load the model')
-  time.sleep(90)
+  print('Recording starting paused.... waiting until flag')
+  while (not (flag)):
+    pass
+  print('Flag updated, Starting recording............')
   #record config
   duration = 4  # seconds 
   records_total = 0
@@ -58,6 +62,10 @@ def inference():
   yamnet = yamnet_model.yamnet_frames_model(params)
   yamnet.load_weights('yamnet.h5')
   yamnet_classes = yamnet_model.class_names('yamnet_class_map.csv')
+
+  global flag
+
+  flag = True
 
   infered = 0
 
